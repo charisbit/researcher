@@ -1,0 +1,47 @@
+models:
+  # Anthropic Claude (云端)
+  anthropic:
+    claude-3-sonnet: "anthropic.claude-3-sonnet-latest"
+    claude-3-haiku: "anthropic.claude-3-haiku-latest"
+  
+  # OpenAI (云端)
+  openai:
+    gpt-4: "openai.gpt-4o"
+    gpt-3-5: "openai.gpt-3.5-turbo"
+  
+  # Ollama (本地)
+  ollama:
+    llama3-2: "generic.llama3.2:latest"
+    qwen2-5: "generic.qwen2.5:latest"
+    mistral: "generic.mistral:latest"
+    codellama: "generic.codellama:latest"
+
+# 默认模型配置
+defaults:
+  cloud_model: "anthropic.claude-3-sonnet-latest"
+  local_model: "generic.llama3.2:latest"
+  use_local: false  # 设置为 true 使用本地模型
+
+# Ollama 服务器配置
+ollama:
+  base_url: "http://localhost:11434/v1"
+  api_key: "ollama"
+  timeout: 60
+
+# 功能模块模型分配
+agents:
+  question_analyzer:
+    cloud: "anthropic.claude-3-sonnet-latest" 
+    local: "generic.llama3.2:latest"
+  
+  web_searcher:
+    cloud: "anthropic.claude-3-haiku-latest"
+    local: "generic.qwen2.5:latest"
+  
+  analysis_chain:
+    cloud: "anthropic.claude-3-sonnet-latest"
+    local: "generic.llama3.2:latest"
+  
+  report_generator:
+    cloud: "anthropic.claude-3-sonnet-latest"
+    local: "generic.llama3.2:latest"
