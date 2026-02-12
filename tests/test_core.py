@@ -109,37 +109,34 @@ class TestModelSwitcher:
     
     def test_check_ollama_status_not_running(self):
         """Test checking Ollama status when not running"""
-        with patch('research_agent.model_switcher.requests.get') as mock_get:
-            mock_get.side_effect = Exception("Connection refused")
+        with patch('subprocess.run') as mock_run:
+            mock_run.return_value = MagicMock(returncode=1)
             
-            from research_agent.model_switcher import model_switcher, check_ollama_status
+            from research_agent.model_switcher import ModelSwitcher
             
+            ms = ModelSwitcher()
             import asyncio
-            result = asyncio.run(check_ollama_status())
+            result = asyncio.run(ms.check_ollama_status())
             assert result is False
     
     def test_list_models_structure(self):
         """Test model listing returns correct structure"""
-        from research_agent.model_switcher import model_switcher, list_available_models
+        import asyncio
+        from research_agent.model_switcher import ModelSwitcher
         
-        # Mock empty local models
-        with patch('research_agent.model_switcher.requests.get') as mock_get:
-            mock_response = MagicMock()
-            mock_response.json.return_value = {
-                'models': [{'name': 'llama3.2:latest'}]
-            }
-            mock_get.return_value = mock_response
+        ms = ModelSwitcher()
+        
+        # Mock the check_ollama_status to return False (no local models)
+        async def mock_check():
+            return False
+        
+        with patch.object(ms, 'check_ollama_status', mock_check):
+            result = asyncio.run(ms.list_available_models())
             
-            with patch.object(model_switcher, 'check_ollama_status', return_value=True):
-                import asyncio
-                
-                # Mock the model listing
-                with patch.object(model_switcher, '_list_local_models', return_value=[]):
-                    with patch.object(model_switcher, '_get_cloud_models', return_value=['claude-3-sonnet']):
-                        result = asyncio.run(list_available_models())
-                        
-                        assert 'cloud' in result
-                        assert 'local' in result
+            assert 'cloud' in result
+            assert 'local' in result
+            assert isinstance(result['cloud'], list)
+            assert isinstance(result['local'], list)
 
 
 class TestResearchAgent:
@@ -165,7 +162,7 @@ class TestPackageMetadata:
     def test_package_info(self):
         """Test package can be imported"""
         import research_agent
-        assert research_agent.__name__ == "research-agent"
+        assert research_agent.__name__ == "research_agent"
     
     def test_version_info(self):
         """Test version information exists"""
