@@ -1,7 +1,4 @@
 import fast
-import aiohttp
-import asyncio
-from typing import List, Dict
 from .config import config
 
 @fast.agent(

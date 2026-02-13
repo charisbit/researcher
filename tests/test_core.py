@@ -5,7 +5,6 @@ Unit tests for research-agent
 import pytest
 import os
 from unittest.mock import patch, MagicMock
-from pathlib import Path
 
 
 class TestConfig:
