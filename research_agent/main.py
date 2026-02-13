@@ -1,6 +1,4 @@
 import fast
-import asyncio
-from typing import Dict, Any
 from dotenv import load_dotenv
 
 from .question_analyzer import analyze_question

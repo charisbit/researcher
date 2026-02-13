@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+research_agent/__init__.py
+research_agent/analysis_chain.py
+research_agent/config.py
+research_agent/main.py
+research_agent/model_switcher.py
+research_agent/question_analyzer.py
+research_agent/report_generator.py
+research_agent/web_searcher.py
+research_agent.egg-info/PKG-INFO
+research_agent.egg-info/SOURCES.txt
+research_agent.egg-info/dependency_links.txt
+research_agent.egg-info/requires.txt
+research_agent.egg-info/top_level.txt
+tests/test_core.py

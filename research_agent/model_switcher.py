@@ -1,6 +1,5 @@
 import os
 import subprocess
-import asyncio
 from .config import config
 
 class ModelSwitcher:
