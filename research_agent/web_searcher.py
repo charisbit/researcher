@@ -1,3 +1,4 @@
+from typing import List
 import fast
 from .config import config
 

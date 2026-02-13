@@ -12,7 +12,7 @@ from .config import config
 - 问题分类
 - 关键概念
 - 子问题列表
-- 搜索关键词"""
+- 搜索关键词""",
     model=config.get_model("question_analyzer")
 )
 async def analyze_question(question: str):
