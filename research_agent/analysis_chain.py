@@ -2,6 +2,7 @@ import fast
 from typing import Dict, Any
 from .config import config
 
+
 @fast.agent(
     instruction="""你是一个深度分析专家。你的任务是：
 1. 对收集到的信息进行多层次分析
@@ -14,7 +15,7 @@ from .config import config
 - 不同观点对比
 - 证据强度评估
 - 需要深入研究的问题""",
-    model=config.get_model("analysis_chain")
+    model=config.get_model("analysis_chain"),
 )
 async def analyze_information(search_data: Dict[str, Any], question_analysis: str):
     async with fast.run() as agent:
@@ -35,13 +36,14 @@ async def analyze_information(search_data: Dict[str, Any], question_analysis: st
         response = await agent.run(analysis_prompt)
         return response
 
+
 @fast.agent(
     instruction="""你是一个批判性思维专家。你的任务是：
 1. 识别分析中的逻辑漏洞
 2. 检查偏见和假设
 3. 评估结论的可靠性
 4. 提出改进建议""",
-    model=config.get_model("analysis_chain")
+    model=config.get_model("analysis_chain"),
 )
 async def critical_review(analysis: str):
     async with fast.run() as agent:

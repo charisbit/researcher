@@ -6,12 +6,14 @@ Ollama 集成测试脚本
 import asyncio
 import os
 import sys
+import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from research_agent.config import config
 from research_agent.model_switcher import model_switcher
 
+@pytest.mark.asyncio
 async def test_ollama_integration():
     """测试 Ollama 集成功能"""
     print("=== Ollama 集成测试 ===\n")
@@ -81,6 +83,7 @@ async def test_ollama_integration():
     print("\n✅ Ollama 集成测试完成！")
     return True
 
+@pytest.mark.asyncio
 async def test_simple_agent():
     """测试简单的 Agent 调用"""
     print("\n=== 简单 Agent 测试 ===\n")

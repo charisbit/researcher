@@ -3,6 +3,7 @@ from typing import Dict, Any, List
 from datetime import datetime
 from .config import config
 
+
 @fast.agent(
     instruction="""你是一个专业的研究报告撰写专家。你的任务是：
 1. 将分析结果整合为结构化报告
@@ -19,14 +20,14 @@ from .config import config
 - 参考文献
 
 使用清晰的标题层次和专业的学术语言。""",
-    model=config.get_model("report_generator")
+    model=config.get_model("report_generator"),
 )
 async def generate_report(
     original_question: str,
     question_analysis: str,
     search_results: Dict[str, Any],
     analysis: str,
-    critical_review: str
+    critical_review: str,
 ):
     async with fast.run() as agent:
         report_prompt = f"""
@@ -52,13 +53,14 @@ async def generate_report(
         response = await agent.run(report_prompt)
         return response
 
+
 @fast.agent(
     instruction="""你是一个引用格式专家。你的任务是：
 1. 从文本中提取所有引用来源
 2. 标准化引用格式
 3. 生成完整的参考文献列表
 4. 确保引用的准确性和一致性""",
-    model=config.get_model("report_generator")
+    model=config.get_model("report_generator"),
 )
 async def format_citations(report_text: str, sources: List[Dict]):
     async with fast.run() as agent:
@@ -76,12 +78,13 @@ async def format_citations(report_text: str, sources: List[Dict]):
         response = await agent.run(citation_prompt)
         return response
 
+
 def save_report(report_content: str, filename: str = None):
     if filename is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"research_report_{timestamp}.md"
-    
-    with open(filename, 'w', encoding='utf-8') as f:
+
+    with open(filename, "w", encoding="utf-8") as f:
         f.write(report_content)
-    
+
     return filename
