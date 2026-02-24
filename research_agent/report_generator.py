@@ -1,5 +1,5 @@
 import fast
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from datetime import datetime
 from .config import config
 
@@ -79,7 +79,7 @@ async def format_citations(report_text: str, sources: List[Dict]):
         return response
 
 
-def save_report(report_content: str, filename: str = None):
+def save_report(report_content: str, filename: Optional[str] = None):
     if filename is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"research_report_{timestamp}.md"

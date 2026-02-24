@@ -22,7 +22,7 @@ class ModelSwitcher:
 
     async def list_available_models(self) -> dict:
         """列出可用的模型"""
-        models = {"cloud": [], "local": []}
+        models: dict = {"cloud": [], "local": []}
 
         # 云端模型（如果有 API 密钥）
         if os.getenv("ANTHROPIC_API_KEY"):
